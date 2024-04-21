@@ -6,6 +6,9 @@ public class DataExtractor {
     public static void main(String[] args) {
         String btc = DIR + "BTC.csv", eth = DIR + "ETH.csv", sol = DIR + "SOL.csv";
         String[] dataBTC = getData(btc), dataETH = getData(eth), dataSOL = getData(sol);
+        if (dataBTC.length == 0 || dataETH.length == 0 || dataSOL.length == 0) {
+            System.err.println("Error retrieving data.");
+        }
         String[] domainOpenBTC = getMinAndMax(dataBTC,'o'), rangeVolBTC = getMinAndMax(dataBTC,'v');
 
         System.out.println("================================================================================");
@@ -98,6 +101,9 @@ public class DataExtractor {
 
     private static String[] getData(String filename) {
         File fin = new File(filename);
+        if (!fin.exists()) {
+            return new String[0];
+        }
         int n = 0;
         String[] dataArr = new String[n];
 
